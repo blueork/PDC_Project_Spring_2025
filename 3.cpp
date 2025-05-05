@@ -105,7 +105,8 @@ vector<int> FindPosition(const vector<int>& v, int t, int n) {
         return Swap(v, t-1);
     }
     else if (v[n-2] == t || v[n-2] == n-1) {
-        int j = v[n-1];
+        // int j = v[n-1];
+        int j = findR(v);
         return Swap(v, j);
     }
     else {
@@ -209,6 +210,8 @@ int main(int argc, char **argv)
         int idx = local_verts[i];
         auto perm = indexToPerm(n, idx);
         for (int t = 1; t < n; ++t) {
+            if(isIdentity(perm))
+                continue;
             vector<int> parent_perm = Parent1(perm, t, n);
             int parent = permToIndex(parent_perm);
             #pragma omp critical
