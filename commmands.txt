@@ -1,18 +1,19 @@
-for metis based:
+Compilation command for 
+for metis + openMP + MPI :
 
-home@Abdullahs-MacBook-Air PDC_Project % mpic++ -Xpreprocessor -fopenmp 2.cpp -o a \
+ mpic++ -Xpreprocessor -fopenmp 2.cpp -o a \
     -I/opt/homebrew/opt/libomp/include \
     -L/opt/homebrew/opt/libomp/lib -lomp \
     -I/opt/homebrew/include -L/opt/homebrew/lib -lmetis
-home@Abdullahs-MacBook-Air PDC_Project % mpirun -np 3 ./a 3  
+running:  mpirun -np 3 ./a 3  
 
-for simple
+for checking openMP simple
 
 mpic++ -Xpreprocessor -fopenmp project.cpp -o a -I/opt/homebrew/opt/libomp/include -L/opt/homebrew/opt/libomp/lib -lomp
 
 
 mpirun -np 3 ./a
 
-
-home@Abdullahs-MacBook-Air PDC_Project % dot -Tpng spanning_tree_1.dot -o tree_1.png
-home@Abdullahs-MacBook-Air PDC_Project % dot -Tpng spanning_tree_2.dot -o tree_2.png
+Dot file generations:
+ dot -Tpng spanning_tree_1.dot -o tree_1.png
+ dot -Tpng spanning_tree_2.dot -o tree_2.png
