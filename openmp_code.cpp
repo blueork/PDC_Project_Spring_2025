@@ -317,17 +317,8 @@ void writeDotFile(const vector<pair<int, int>>& edges, int treeNum, int n) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        cerr << "Usage: " << argv[0] << " <number_of_threads>" << endl;
-        return 1;
-    }
-
-    int num_threads = atoi(argv[1]);
-    if (num_threads <= 0) {
-        cerr << "Number of threads must be positive" << endl;
-        return 1;
-    }
-    omp_set_num_threads(num_threads);
+    omp_set_num_threads(omp_get_max_threads());
+    cout << "Using " << omp_get_max_threads() << " threads.\n";
 
     int n;
     cout << "Enter n: ";
@@ -361,13 +352,14 @@ int main(int argc, char* argv[]) {
 
     for (int t = 0; t < n - 1; ++t) {
         vector<pair<int, int>> edges = localSpanning[t];
-        cout << "\n=== Spanning Tree " << t + 1 << " ===\n";
+        /*cout << "\n=== Spanning Tree " << t + 1 << " ===\n";
         for (const auto& [child, parent] : edges) {
             for (int x : indexToPerm(n, child)) cout << x;
             cout << " <-- ";
             for (int x : indexToPerm(n, parent)) cout << x;
             cout << "\n";
         }
+        */
         writeDotFile(edges, t + 1, n);
     }
 

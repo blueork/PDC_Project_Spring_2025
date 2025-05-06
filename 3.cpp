@@ -250,7 +250,7 @@ int main(int argc, char **argv)
                     if (rank == 0)
                     {
                         vector<pair<int, int>> edges;
-                        cout << "\n=== Spanning Tree " << t + 1 << " ===\n";
+                       // cout << "\n=== Spanning Tree " << t + 1 << " ===\n";
                         for (int i = 0; i < all_flat.size(); i += 2)
                         {
                             int child = all_flat[i];
@@ -259,11 +259,12 @@ int main(int argc, char **argv)
                            // if (child == parent) continue; // skip self-loops
                     
                             edges.emplace_back(child, parent);
-                    
+                    /*
                             for (int x : indexToPerm(n, child)) cout << x;
                             cout << " <-- ";
                             for (int x : indexToPerm(n, parent)) cout << x;
                             cout << "\n";
+                            */
                         }
                     
                         // Write Graphviz DOT file
