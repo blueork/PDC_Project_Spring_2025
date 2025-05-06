@@ -1,0 +1,31 @@
+# Dockerfile
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    openmpi-bin \
+    libopenmpi-dev \
+    openssh-client \
+    openssh-server \
+    iputils-ping
+
+# Set root password (optional if needed)
+RUN echo "root:root" | chpasswd
+
+# Create mpiuser
+RUN useradd -m mpiuser && echo "mpiuser:mpiuser" | chpasswd && adduser mpiuser sudo
+
+# Allow sshd
+RUN mkdir /var/run/sshd
+
+# Set working directory
+WORKDIR /home/mpiuser
+
+# SSH login without asking for host authenticity
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+
+# Open port 22
+EXPOSE 22
+
+# Start sshd
+CMD ["/usr/sbin/sshd", "-D"]
