@@ -170,6 +170,11 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
+    char processor_name[MPI_MAX_PROCESSOR_NAME];
+    int name_len;
+    MPI_Get_processor_name(processor_name, &name_len);
+
+
     int n;
     if (rank == 0)
     {
@@ -205,6 +210,11 @@ int main(int argc, char **argv)
             local_verts.push_back(i);
 
     vector<vector<pair<int, int>>> localSpanning(n - 1);
+
+    cout << "Hello from process " << rank << " ";
+    cout << "out of " << size << " ";
+    cout << "on " << processor_name << "\n";
+
     #pragma omp parallel for
     for (int i = 0; i < local_verts.size(); ++i) {
         int idx = local_verts[i];
